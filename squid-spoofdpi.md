@@ -77,6 +77,7 @@ touch /etc/squid/lists/spoofdpi_url_regex.txt
 ```
 
 Add to File spoofdpi_url_regex.txt the next line.
------------
+
+```
 (https?://)?([a-z0-9-]+\.)?(youtube|ytimg)\.([a-z]{2,}|com|net|org)(/.*)?
------------
+```
