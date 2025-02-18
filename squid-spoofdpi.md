@@ -1,17 +1,18 @@
-				Setup squid + spoofdpi = you tube 
+				# Setup squid + spoofdpi = you tube 
 
 Step #1. Installing sppoofdpi on linux.
 
 Run
-
-# curl -fsSL https://raw.githubusercontent.com/xvzc/SpoofDPI/main/install.sh | bash -s linux-amd64
-
+```bash
+curl -fsSL https://raw.githubusercontent.com/xvzc/SpoofDPI/main/install.sh | bash -s linux-amd64
+```
 
 Create file for service.
- 
-# touch /etc/systemd/system/spoofdpi.service
-
+```bash 
+touch /etc/systemd/system/spoofdpi.service
+```
 Insert the following content into the file
+```
 --------------
 [Unit]
 Description=spoofDPI service
@@ -27,26 +28,32 @@ Environment="PATH=$PATH:/root/.spoofdpi/bin"
 [Install]
 WantedBy=multi-user.target
 ---------------
+```
 
 Re-reading the systemd.
-# systemctl daemon-reload 
-
+```bash
+systemctl daemon-reload 
+```
 Starting  service.
-# systemctl start spoofdpi.service
-
-# systemctl enable spoofdpi.service 
-
+```bash
+systemctl start spoofdpi.service
+```
+```bash
+systemctl enable spoofdpi.service 
+```
 Shecking the status of. 
-# systemctl status spoofdpi.service
-
+```bash
+systemctl status spoofdpi.service
+```
 Reading a magazine
-# journalctl -u spoofdpi.service
-
+```bash
+journalctl -u spoofdpi.service
+```
 
 Step #2 Configuring squid on an upstream proxy.
 
 Adding the following parameters to the squid configuration.
------------
+```
 # The parent proxy spoofdpi (installed here on the localhost)
 cache_peer 127.0.0.1 parent 3138 3138 no-digest allow-miss no-query
 
@@ -64,8 +71,10 @@ never_direct deny all
 always_direct deny spoofdpi_url_regex LocalNet auth_users InternetAccess
 always_direct allow all
 
------------ 
-# touch /etc/squid/lists/spoofdpi_url_regex.txt
+``` 
+```bash
+touch /etc/squid/lists/spoofdpi_url_regex.txt
+```
 
 Add to File spoofdpi_url_regex.txt the next line.
 -----------
